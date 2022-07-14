@@ -1,0 +1,4 @@
+export(dwmw)
+export(fstruction)
+importFrom(lme4, factorize, getME, findbars, lmerControl, glmerControl)
+importFrom(stats, lm, glm, update, formula)

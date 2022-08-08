@@ -36,7 +36,7 @@ str(issue618)
 library(lme4)
 m1<- glmer(outcome_dead ~ AGE + (1|ZIP), family = binomial, data = issue618)
 summary(m1)
-m2 <- dwmw(m1)
+m2 <- dwmw(m1, scale = TRUE)
 summary(m2)
 }
 }

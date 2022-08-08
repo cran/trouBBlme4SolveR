@@ -50,6 +50,11 @@
 \examples{
 data(fly_parameters)
 str(fly_parameters)
+df <- fly_parameters
+df$SUR.ID <- factor(df$SUR.ID)
+df$replicate <- factor(df$replicate)
+Rdet <- cbind(df$ValidDetections,df$FalseDetections)
+Unit <- factor(1:length(df$ValidDetections))
 \donttest{
 library(lme4)
 m1 <- glmer(Rdet ~ tm:Area + tm:c.distance +

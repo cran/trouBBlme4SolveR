@@ -32,13 +32,13 @@
 }
 
 \examples{
-data(issue618)
-str(issue618)
+data(issue618large)
+str(issue618large)
 \donttest{
 library(lme4)
 m1<- glmer(outcome_dead ~ AGE + (1|ZIP), family = binomial, data = issue618large)
 summary(m1)
-m2 <- dwmw(m1)
+m2 <- dwmw(m1, scale = TRUE)
 summary(m2)
 m3 <- glmer(outcome_dead ~ scale(AGE) + (1|ZIP), family = binomial, data = issue618large, 
 	    nAGQ=20)

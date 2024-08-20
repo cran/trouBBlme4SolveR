@@ -1,4 +1,4 @@
-dwmw <- function(lmmodel, boundary_check = TRUE, scale = FALSE, scale_info = TRUE, tol = 1e-04, max_message_iter = 7, max_nAGQ = 6, next_optimizer = "bobyqa", next_optCtrl = list(maxfun=2e5), when_next = max_message_iter - 1, verbose = FALSE) {
+dwmw <- function(lmmodel, boundary_check = TRUE, scale = FALSE, scale_info = TRUE, tol = 1e-04, max_message_iter = 7, pri_nAGQ = FALSE, max_nAGQ = 6, next_optimizer = "bobyqa", next_optCtrl = list(maxfun=2e5), when_next = max_message_iter - 1, verbose = FALSE) {
 
 	self <- environment()
 	self$messages <- "Initial model"
@@ -39,7 +39,7 @@ dwmw <- function(lmmodel, boundary_check = TRUE, scale = FALSE, scale_info = TRU
 							  m2@frame[logOp] <- scale(self$m2@frame[logOp])
 							  m2 <- update(self$m2, data = self$m2@frame)
 							  out_string <- c(out_string, "Numeric predictors rescaled!!!\n")
-						  } else if(any(grepl("Model failed to converge with max\\|grad\\|", self$messages))) {
+						  } else if(any(grepl("Model failed to converge with max\\|grad\\|", self$messages)) && !(pri_nAGQ && any("Model is nearly unidentifiable: very large eigenvalue\n - Rescale variables?" == self$messages) && isa(self$m2, "glmerMod") && length(getME(self$m2,"theta")) == 1)) {
 							  if(verbose){
 								  cat("UPDATING MODEL START PARAMETERS\n")
 							  }
@@ -89,6 +89,7 @@ dwmw <- function(lmmodel, boundary_check = TRUE, scale = FALSE, scale_info = TRU
 							  }
 							  self$max_message_iter <- self$max_message_iter + 1
 							  m2 <- update(self$m2, nAGQ = self$nAGQ)
+                                                          if(self$nAGQ == max_nAGQ) pri_nAGQ <- FALSE
 						  } else if(identical("Some predictor variables are on very different scales: consider rescaling", self$messages)) {
 							  self$messages <- NA_character_
 							  if(scale_info){

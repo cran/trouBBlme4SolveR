@@ -16,7 +16,7 @@
 \usage{
 dwmw(lmmodel,
      boundary_check = TRUE, scale = FALSE, scale_info = TRUE,
-     tol = 1e-4, max_message_iter = 7, max_nAGQ = 6,
+     tol = 1e-4, max_message_iter = 7, pri_nAGQ = FALSE, max_nAGQ = 6,
      next_optimizer = "bobyqa", next_optCtrl = list(maxfun = 2e5),
      when_next = max_message_iter - 1, verbose = FALSE)
 }
@@ -24,7 +24,7 @@ dwmw(lmmodel,
 \arguments{  
 	\item{lmmodel}{The model of interest, output of either
 		\code{\link[lme4]{lmer}} or \code{\link[lme4]{glmer}}, that is, an
-		object of class \code{\link[=merMod-class]{merMod}} and
+		object of class \code{\link[lme4]{merMod}} and
 		\emph{subclass} either \code{lmerMod} or \code{glmerMod}.}
 	\item{boundary_check}{A length 1 boolean object (\code{TRUE} [default]
 		or \code{FALSE}), determining if the function removes those random
@@ -44,6 +44,10 @@ dwmw(lmmodel,
 	\item{max_message_iter}{A numeric value (default is \code{7}),
 		generally the maximum number of iterations allowed to update the
 		model. For the exception, see the Details section.}
+	\item{pri_nAGQ}{A length 1 boolean object (\code{TRUE} or \code{FALSE} 
+		[default]), determining if the function prioritizes incrising
+		\code{nAGQ} over updating model start parameters when both are 
+		possible solutions to warned issues.}
 	\item{max_nAGQ}{A numeric value (default is \code{6}), maximum to
 		which increase the \code{nAGQ} argument fitting
 		\code{\link[lme4]{glmer}} models.}
@@ -70,7 +74,7 @@ dwmw(lmmodel,
 
 \value{
 	Generally, an object of class
-	\code{\link[=merMod-class]{merMod}}, being either an object of
+	\code{\link[lme4]{merMod}}, being either an object of
 	\emph{subclass} \code{glmerMod} or an object of subclass
 	\code{lmerMod}, corresponding to the input \code{lmmodel}
 	argument. When all random effects are removed, an object of
@@ -106,7 +110,7 @@ dwmw(lmmodel,
 \seealso{
 
 	\code{\link[lme4]{lmer}}, \code{\link[lme4]{glmer}},
-	\code{\link[=merMod-class]{merMod}} \code{\link[lme4]{lmerControl}},
+	\code{\link[lme4]{merMod}} \code{\link[lme4]{lmerControl}},
 	\code{\link[lme4]{convergence}}, \code{\link[lme4]{troubleshooting}},
 	\code{\link[lme4]{isSingular}}, \code{\link{lm}} and
 	\code{\link{glm}}.

@@ -14,7 +14,7 @@ fstruction(model, tol = 1e-4)
 \arguments{
 	\item{model}{The model of interest, output of either
 		\code{\link[lme4]{lmer}} or \code{\link[lme4]{glmer}}, that is, an
-		object of class \code{\link[=merMod-class]{merMod}} and
+		object of class \code{\link[lme4]{merMod}} and
 		\emph{subclass} either \code{lmerMod} or \code{glmerMod}.}
 	\item{tol}{A numeric value (default is \code{1e-4}), tolerance under
 		which to determine if the random effects make the model to be

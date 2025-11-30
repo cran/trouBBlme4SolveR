@@ -1,11 +1,11 @@
-36bb23003ffa271f1cba102027176085 *DESCRIPTION
-bbbd10eb141ea8bbd6e42fbce0a01354 *NAMESPACE
+7def91ad25f47a600555c8a126e49953 *DESCRIPTION
+c679bdfdc40d994eeea1b700dfad80c8 *NAMESPACE
 6f5c40b184c18fa410bead71cedc936e *NEWS.md
 100a0af1e4ca8aa8beb4c8c69ad63b58 *R/fstruction.r
 014c8eac8eef636f22fcfd3848fd1646 *R/trouBBlme4SolveR.r
-05736eafddef75c138c86e8495154861 *R/utils.r
+092cefec7621ab21ae1fc763c4d68bda *R/utils.r
 6eb48f3c4bb1c7baf9f0eca2e36d02d9 *README.md
-1c05107622c71164f4942462803af981 *build/vignette.rds
+f23029b9dcf8e527c8ff84a69a01ca4b *build/vignette.rds
 564028d7ba3a9ce6eefad9aeecdc9664 *data/fly_parameters.RData
 63338c6e9fdd93d55aab65981057356a *data/issue618.txt.gz
 0b9787328b3263432ea6a24c5f428b84 *data/issue618large.txt.gz
@@ -13,7 +13,7 @@ bbbd10eb141ea8bbd6e42fbce0a01354 *NAMESPACE
 d4b0c8d5a7bb4b7fe97509a893c49e2a *data/treatments.RData
 acf5ed6c129c1a1f7fcf0d2b477e1d33 *inst/doc/introduction.R
 1acc4be32da481e6a5c8a75b9b14fe1c *inst/doc/introduction.Rnw
-b76d1af5e9ec3cd8db7b61779eeff4ae *inst/doc/introduction.pdf
+91619ba9623b32899513e3ca22211a13 *inst/doc/introduction.pdf
 01dcdfdc4de80d0d13e9c0013ef59248 *man/dwmw.Rd
 103070c1d88846f9241041e3e50170d4 *man/fly_parameters.Rd
 d4cf88656f3687d787dcfb4f808f64b0 *man/fstruction.Rd

@@ -16,7 +16,7 @@ mkBlist <- function(x,frloc, drop.unused.levels=TRUE,
                     reorder.vars=FALSE) {
   frloc <- lme4::factorize(x,frloc)
   ## try to evaluate grouping factor within model frame ...
-  ff0 <- replaceTerm(x[[3]], quote(`:`), quote(`%i%`))
+  ff0 <- replaceForm(x[[3]], quote(`:`), quote(`%i%`))
   ff <- try(eval(substitute(makeFac(fac),
                             list(fac = ff0)),
                  frloc), silent = TRUE)
@@ -44,31 +44,6 @@ makeFac <- function (x, char.only = FALSE)
   if (!is.factor(x) && (!char.only || is.character(x))) 
     factor(x)
   else x
-}
-
-
-### lme4:::replaceTerm
-replaceTerm <- function (term, target, repl) 
-{
-  if (identical(term, target)) 
-    return(repl)
-  if (!inForm(term, target)) 
-    return(term)
-  if (length(term) == 2) {
-    return(substitute(OP(x), list(OP = replaceTerm(term[[1]], 
-                                                   target, repl), x = replaceTerm(term[[2]], target, 
-                                                                                  repl))))
-  }
-  return(substitute(OP(x, y), list(OP = replaceTerm(term[[1]], 
-                                                    target, repl), x = replaceTerm(term[[2]], target, repl), 
-                                   y = replaceTerm(term[[3]], target, repl))))
-}
-
-### lme4:::inForm
-inForm <- function(form,value) {
-    if (any(sapply(form,identical,value))) return(TRUE)
-    if (all(sapply(form,length)==1)) return(FALSE)
-    return(any(vapply(form,inForm,value,FUN.VALUE=logical(1))))
 }
 
 ### lme4:::`%i%`

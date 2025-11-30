@@ -1,4 +1,5 @@
 export(dwmw)
 export(fstruction)
-importFrom(lme4, factorize, getME, findbars, lmerControl, glmerControl)
+importFrom(lme4, factorize, getME, lmerControl, glmerControl)
+importFrom(reformulas, findbars, replaceForm, inForm)
 importFrom(stats, lm, glm, update, formula)

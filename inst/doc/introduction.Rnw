@@ -18,9 +18,12 @@
 
 In this vignette we show an introduction to the package \pkg{trouBBlme4SolveR} and some examples of how to use the \code{dwmw} function (whose name was motivated because of \emph{Dealing With Model Warnings}).
 
-In 2014, Ben Bolker wrote the publication \href{https://rpubs.com/bbolker/lme4trouble1}{https://rpubs.com/bbolker/lme4trouble1}, with some hints to solve convergence warnings produced by the functions \code{lmer} and \code{glmer}. Along the past years, he also have answered several related questions on the \pkg{lme4} repository in Github and in the SO forums. He also treated these issues in the \href{http://bbolker.github.io/mixedmodels-misc/glmmFAQ.html}{GLMM FAQ}, mainly in the section \href{http://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#troubleshooting}{Troubleshooting}.  This package was inspired by these documents and by the \pkg{lme4} documentation pages \texttt{troubleshooting} and \texttt{convergence}. This is the reason to make a homage to Ben Bolker in the package name, being a ``SolveR for (4) \pkg{lme4} troubles'', making the ``troub-lme4-SolveR'' a ``BB [Ben Bolker]-troub-lme4-SolveR'', i.e., \pkg{trouBBlme4SolveR}.
+In 2014, Ben Bolker wrote the publication \href{https://rpubs.com/bbolker/lme4trouble1}{lme4 convergence warnings: troubleshooting}, with some hints to solve convergence warnings produced by the functions \code{lmer} and \code{glmer}. Along the past years, he also have answered several related questions on the \pkg{lme4} repository in Github and in the SO forums. He also treated these issues in the \href{http://bbolker.github.io/mixedmodels-misc/glmmFAQ.html}{GLMM FAQ}, mainly in the section \href{http://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#troubleshooting}{Troubleshooting}.  This package was inspired by these documents and by the \pkg{lme4} documentation pages \texttt{troubleshooting} and \texttt{convergence}. This is the reason to make a homage to Ben Bolker in the package name, being a ``SolveR for (4) \pkg{lme4} troubles'', making the ``troub-lme4-SolveR'' a ``BB [Ben Bolker]-troub-lme4-SolveR'', i.e., \pkg{trouBBlme4SolveR}.
 
 Let's start by the same example explained by Ben Bolker in his 2014's publication. Scaling and updating the optimizer to avoid model failed to converge is automatic by means of \code{dwmw}. Beyond that, while the final model in the publication is yet singular, the output model by \code{dwmw} is not.
+<<results=hide,echo=FALSE,print=FALSE>>=
+options(width=76)
+@
 
 <<<>>=
 library(lme4)
@@ -46,8 +49,9 @@ dfs <- df
 dfs[,numcols] <- scale(dfs[,numcols])
 m1_sc <- update(m1,data=dfs)
 ss <- getME(m1_sc,c("theta","fixef"))
-m3 <- update(m1_sc,start=ss,control=glmerControl(optimizer="bobyqa",
-						 optCtrl=list(maxfun=2e5)))
+m3 <- update(m1_sc,start=ss,
+	     control=glmerControl(optimizer="bobyqa",
+				  optCtrl=list(maxfun=2e5)))
 summary(m3)
 
 library(trouBBlme4SolveR)
@@ -63,8 +67,9 @@ if(requireNamespace("nlme")){
 	data(Orthodont,package="nlme")
 	Orthodont$nsex <- as.numeric(Orthodont$Sex=="Male")
 	Orthodont$nsexage <- with(Orthodont, nsex*age)
-	fmo <- lmer(distance ~ age + (age|Subject) + (0 + nsex|Subject) +
-		    (0 + nsexage|Subject), data = Orthodont)
+	fmo <- lmer(distance ~ age + (age|Subject) + 
+		    (0 + nsex|Subject) + (0 + nsexage|Subject), 
+	            data = Orthodont)
 	# without warnings
 	fmo_new <- dwmw(fmo)
 }
@@ -113,21 +118,14 @@ In this example, scaling the continuous predictor \href{https://github.com/lme4/
 
 <<>>=
 data("issue618", package = "trouBBlme4SolveR")
-fit <- glmer(outcome_dead ~ AGE + (1|ZIP), family = binomial, data = issue618)
+fit <- glmer(outcome_dead ~ AGE + (1|ZIP), family = binomial, 
+	     data = issue618)
 summary(fit)
 fit_new <- dwmw(fit, scale = TRUE)
 summary(fit_new)
 @
 
-The same with the \href{https://github.com/lme4/lme4/issues/618#issuecomment-768672276}{larger dataset}:
-
-<<>>=
-data("issue618large", package = "trouBBlme4SolveR")
-fit <- glmer(outcome_dead ~ AGE + (1|ZIP), family = binomial, data = issue618large)
-summary(fit)
-fit_new <- dwmw(fit, scale = TRUE)
-summary(fit_new)
-@
+With the current version of \pkg{lme4} (1.1-38), \code{glmer} applied to the \href{https://github.com/lme4/lme4/issues/618#issuecomment-768672276}{larger dataset}, converges without warnings.
 
 
 \begin{itemize}
@@ -138,7 +136,8 @@ The convergence issue posted is solved by means of updating the model start para
 
 <<>>=
 data("treatments", package = "trouBBlme4SolveR")
-glmm.1 <- glmer(total_no ~ week * treatment * fzone + (1|plot), data = treatments, family = poisson)
+glmm.1 <- glmer(total_no ~ week * treatment * fzone + (1|plot), 
+		data = treatments, family = poisson)
 summary(glmm.1)
 glmm.11 <- dwmw(glmm.1, verbose = TRUE)
 summary(glmm.11)
@@ -160,9 +159,11 @@ if(requireNamespace("ggplot2")){
 	# Grab the priciest diamonds
 	diamonds_subset <- diamonds[(nrow(diamonds)-10000):nrow(diamonds),]
 	# Fit the model
-	fit_1 <- lmer(carat ~ depth + table + price + x + y + z + (1 + price | cut), data = diamonds_subset)
+	fit_1 <- lmer(carat ~ depth + table + price + x + y + z + 
+		      (1 + price | cut), data = diamonds_subset)
 	# Let's try dividing price by 1000
-	fit_2 <- lmer(carat ~ depth + table + I(price/1000) + x + y + z + (1 + I(price/1000) | cut), data = diamonds_subset)
+	fit_2 <- lmer(carat ~ depth + table + I(price/1000) + x + y + z + 
+		      (1 + I(price/1000) | cut), data = diamonds_subset)
 
 	fit_new <- dwmw(fit_1, scale = TRUE, verbose = TRUE)
 }

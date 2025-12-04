@@ -15,3 +15,12 @@
     > There are two other forms with an optional ‘anchor’ argument, specified as `\link[pkg]{foo}` and `\link[pkg:bar]{foo}`, to link to topics *foo* and *bar* respectively in the package **pkg**.
 * Update README.md file
 * Add a new argument to `dwmw` function which will allow to prioritise incrising the `nAGQ` value over updating model start parameters when both possibilities are available.
+
+# trouBBlme4SolveR v0.1.3
+
+* Add `reformulas` package to 'Imports' and import some auxiliar functions previously in `lme4` from the added package.
+
+# trouBBlme4SolveR v0.1.4
+
+* Update dealing with `lme4` warning messages to be more robust under changes.
+* Remove an outdated example and update formatting in the vignette.

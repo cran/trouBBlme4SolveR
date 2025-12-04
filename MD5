@@ -1,8 +1,8 @@
-7def91ad25f47a600555c8a126e49953 *DESCRIPTION
+bb86d315d7c54398bc62be69311dfcbf *DESCRIPTION
 c679bdfdc40d994eeea1b700dfad80c8 *NAMESPACE
-6f5c40b184c18fa410bead71cedc936e *NEWS.md
+b7d1394a4e2f6a9aa0dcfd17ddc6af89 *NEWS.md
 100a0af1e4ca8aa8beb4c8c69ad63b58 *R/fstruction.r
-014c8eac8eef636f22fcfd3848fd1646 *R/trouBBlme4SolveR.r
+48ad6ac6c5f8433f703854094290d248 *R/trouBBlme4SolveR.r
 092cefec7621ab21ae1fc763c4d68bda *R/utils.r
 6eb48f3c4bb1c7baf9f0eca2e36d02d9 *README.md
 f23029b9dcf8e527c8ff84a69a01ca4b *build/vignette.rds
@@ -11,9 +11,9 @@ f23029b9dcf8e527c8ff84a69a01ca4b *build/vignette.rds
 0b9787328b3263432ea6a24c5f428b84 *data/issue618large.txt.gz
 65e41c845e6fc1a63286da4ec1128fc5 *data/plants.RData
 d4b0c8d5a7bb4b7fe97509a893c49e2a *data/treatments.RData
-acf5ed6c129c1a1f7fcf0d2b477e1d33 *inst/doc/introduction.R
-1acc4be32da481e6a5c8a75b9b14fe1c *inst/doc/introduction.Rnw
-91619ba9623b32899513e3ca22211a13 *inst/doc/introduction.pdf
+5278169df74ac2aab440c7b73693274d *inst/doc/introduction.R
+a0c0374bc11d124a2aa2278c3ad83adb *inst/doc/introduction.Rnw
+84be2b1adc76372b7df1390688f3a1a5 *inst/doc/introduction.pdf
 01dcdfdc4de80d0d13e9c0013ef59248 *man/dwmw.Rd
 103070c1d88846f9241041e3e50170d4 *man/fly_parameters.Rd
 d4cf88656f3687d787dcfb4f808f64b0 *man/fstruction.Rd
@@ -21,4 +21,4 @@ d4cf88656f3687d787dcfb4f808f64b0 *man/fstruction.Rd
 c39cdabad48182069990c20137a32c71 *man/issue618large.Rd
 132090e62928831261eaf29a38f22f53 *man/plants.Rd
 624bfbeb50795d28dd8c975a509a0eac *man/treatments.Rd
-1acc4be32da481e6a5c8a75b9b14fe1c *vignettes/introduction.Rnw
+a0c0374bc11d124a2aa2278c3ad83adb *vignettes/introduction.Rnw

@@ -28,7 +28,7 @@ dwmw <- function(lmmodel, boundary_check = TRUE, scale = FALSE, scale_info = TRU
 							  }else{
 								  m2 <- update(lmmodel)
 							  }
-						  } else if(scale && (any(grepl("Rescale variables?", self$messages)) || any("Some predictor variables are on very different scales: consider rescaling" == self$messages))){
+						  } else if(scale && (any(grepl("Rescale variables?", self$messages)) || any(grepl("Some predictor variables are on very different scales: consider rescaling", self$messages)))){
 							  if(verbose){
 								  cat("SCALING PARAMETERS\n")
 							  }
@@ -39,7 +39,7 @@ dwmw <- function(lmmodel, boundary_check = TRUE, scale = FALSE, scale_info = TRU
 							  m2@frame[logOp] <- scale(self$m2@frame[logOp])
 							  m2 <- update(self$m2, data = self$m2@frame)
 							  out_string <- c(out_string, "Numeric predictors rescaled!!!\n")
-						  } else if(any(grepl("Model failed to converge with max\\|grad\\|", self$messages)) && !(pri_nAGQ && any("Model is nearly unidentifiable: very large eigenvalue\n - Rescale variables?" == self$messages) && isa(self$m2, "glmerMod") && length(getME(self$m2,"theta")) == 1)) {
+						  } else if(any(grepl("Model failed to converge with max\\|grad\\|", self$messages)) && !(pri_nAGQ && any(grepl("Model is nearly unidentifiable: very large eigenvalue\n - Rescale variables?", self$messages)) && isa(self$m2, "glmerMod") && length(getME(self$m2,"theta")) == 1)) {
 							  if(verbose){
 								  cat("UPDATING MODEL START PARAMETERS\n")
 							  }
@@ -81,7 +81,7 @@ dwmw <- function(lmmodel, boundary_check = TRUE, scale = FALSE, scale_info = TRU
 													     " zero.\nThen, we consider the next model after removing", ifelse(length(dstring[["betchar"]]) == 1," this random effect"," these random effects"), ".\n\n"))
 								  }
 							  }
-						  } else if(any("Model is nearly unidentifiable: very large eigenvalue\n - Rescale variables?" == self$messages) && isa(self$m2, "glmerMod") && length(getME(self$m2,"theta")) == 1) {
+						  } else if(any(grepl("Model is nearly unidentifiable: very large eigenvalue\n - Rescale variables?", self$messages)) && isa(self$m2, "glmerMod") && length(getME(self$m2,"theta")) == 1) {
 							  self$messages <- NA_character_
 							  self$nAGQ <- self$nAGQ + 1
 							  if(verbose){
@@ -90,7 +90,7 @@ dwmw <- function(lmmodel, boundary_check = TRUE, scale = FALSE, scale_info = TRU
 							  self$max_message_iter <- self$max_message_iter + 1
 							  m2 <- update(self$m2, nAGQ = self$nAGQ)
                                                           if(self$nAGQ == max_nAGQ) pri_nAGQ <- FALSE
-						  } else if(identical("Some predictor variables are on very different scales: consider rescaling", self$messages)) {
+						  } else if(identical(grepl("Some predictor variables are on very different scales: consider rescaling", self$messages), TRUE)) {
 							  self$messages <- NA_character_
 							  if(scale_info){
 								  out_string <- c(out_string, paste0("In the next model ", sub("^S(.*:) [a-z]+ ([a-z]+)$","s\\1 \\2 would be suitable", self$messages),".\n"))
